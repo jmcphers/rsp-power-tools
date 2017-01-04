@@ -5,7 +5,7 @@ digraph availability {
   nginx [label="NGinx", shape="rect", fontsize="20"];
   rspa [label="RSP Server A", group="RSP", fillcolor="lightgray", style="filled"];
   rspb [label="RSP Server B", group="RSP", fillcolor="lightgray", style="filled"];
-  rspc [label="RSP Server C", group="RSP"];
+  rspc [label="RSP Server C", group="RSP", fontcolor="gray", color="gray"];
   { rank = "source"; analysta; analystb; analystc; }
   analysta -> nginx;
   analystb -> nginx;
