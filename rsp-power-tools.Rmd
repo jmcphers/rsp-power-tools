@@ -152,19 +152,130 @@ Set in `/etc/rstudio/profiles`:
     nice = -10
     max-memory-mb = 4096
 
-## Use a version of R per project
+## Use a project-specific version of R
 
+![r-version-3](r-version-3.png)
 
+## Use a project-specific version of R
 
-## Use a version of R per project
+![project-r-version](project-r-version.png)
 
-## Store new projects and sessions outside home dir
-## Change where the user package library is located
-## Lock users to a load balanced node
+## Store new projects outside home dir
+
+![full directories](full-directories.jpg)
+
+## Store new projects outside home dir
+
+In `/etc/rstudio/rsession.conf`:
+
+    session-default-new-project-dir=/mnt/bigdisk/projects
+    
+Also, consider setting `R_USER`, which allows customization of your "user home dir" as seen by R.
+
+## Stable mapping of users to load balanced nodes
+
+```{r, echo=FALSE}
+grViz(diagram="cityhash.gv")
+```
+
+## Stable mapping of users to load balanced nodes
+
+In `/etc/rstudio/load-balancer`
+
+    [config]
+    balancer = user-hash
+
 ## Impersonate a user
+
+![impersonation](impersonation.png)
+
+## Impersonate a user
+
+    admin-superuser-group=rstudio-super-users
+
+![superusers](superusers.png)
+
 ## Set default settings for new users
+
+![options](options.png)
+
+## Set default settings for new users
+
+1. Set the settings you want in a user account
+1. Extract them from the user's `~/.rstudio/monitored/user-settings` folder
+1. Copy to `/etc/skel`
+
 ## Log R session activity
+
+    pid, username, timestamp, type, data
+    28450, "rstudiouser", 1483482767000, auth_login, ""
+    28519, "rstudiouser", 1483482769000, session_start, ""
+    28450, "rstudiouser", 1483484148000, auth_login, ""
+    28450, "rstudiouser", 1483484258000, auth_logout, ""
+    28450, "rstudiouser", 1483484265000, auth_login, ""
+    28450, "rstudiouser", 1483484277000, auth_logout, ""
+    28450, "rstudiouser", 1483484283000, auth_login_failed, ""
+    28450, "rstudiouser", 1483484287000, auth_login, ""
+    28519, "rstudiouser", 1483484297000, session_quit, ""
+    28519, "rstudiouser", 1483484297000, session_exit, ""
+    28796, "rstudiouser", 1483484308000, session_start, ""
+    28796, "rstudiouser", 1483484317000, session_quit, ""
+    28796, "rstudiouser", 1483484317000, session_exit, ""
+    28835, "rstudiouser", 1483484318000, session_start, ""
+    28835, "rstudiouser", 1483484321000, session_quit, ""
+    28835, "rstudiouser", 1483484321000, session_exit, ""
+    28871, "rstudiouser", 1483485057000, session_start, ""
+
+## Log R session activity
+
+In `/etc/rstudio/rserver.conf`:
+
+    audit-r-sessions=1
+
 ## Immortal sessions
-## Graphite monitoring
-## Run in Docker
+
+![Immortal Session](immortal-session.png)
+
+## Immortal sessions
+
+In `/etc/rstudio/profiles`:
+
+    [*]
+    session-timeout-minutes=0
+
+Can also designate specific groups or users who have immortal sessions.
+
 ## Open project in a new session
+
+![multi-session](multi-session.png)
+
+## Open project in a new session
+
+![new-session](new-session.png)
+
+## See another session's output
+
+![monitor session](monitor-session.png)
+
+## See another session's output
+
+1. Split the output stream from the source session with `sink(file = "/tmp/foo", split = TRUE)`
+1. Open file as a source file in another session
+1. See what your other session's up in one click and without leaving your current session window
+
+With some modifications, this technique is also useful for consuming partial output of long-running processes.
+
+## Graphite monitoring
+
+![graphite](graphite.png)
+
+## Graphite monitoring
+
+In `/etc/rstudio/rserver.conf`
+
+    monitor-graphite-enabled=1
+    monitor-graphite-host=134.47.22.6
+    monitor-graphite-port=2003
+
+## Change where the user package library is located
+
