@@ -2,7 +2,7 @@
 title: "RStudio Server Pro Power Tools"
 output: 
   revealjs::revealjs_presentation:
-    theme: solarized
+    theme: moon
     transition: slide
     self_contained: no
     css: rsp-power-tools.css
@@ -86,14 +86,6 @@ in `/etc/rstudio/rserver.conf`. It's als possible to log input only (specify `in
 ## Choose project when signing in
 
 ![show-signin-page](show-signin-page.png)
-
-## Pair program and code review 
-
-![pair-program](collab-edit.png)
-
-## Pair program and code review 
-
-![follow-user](follow-user.png)
 
 ## Get notified when RSP goes down
 
@@ -277,5 +269,13 @@ In `/etc/rstudio/rserver.conf`
     monitor-graphite-host=134.47.22.6
     monitor-graphite-port=2003
 
-## Change where the user package library is located
+## Pair program and code review 
+
+![pair-program](collab-edit.png)
+
+## Pair program and code review 
+
+![follow-user](follow-user.png)
+
+## Q&A
 
